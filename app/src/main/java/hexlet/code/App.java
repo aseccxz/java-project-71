@@ -1,5 +1,7 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import org.apache.commons.collections4.CollectionUtils;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -8,8 +10,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
-// some exports omitted for the sake of brevity
+import java.util.Set;
 
 @Command(name = "gendiff", version = "App 1.0", mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference.")
@@ -37,12 +41,43 @@ public class App implements Runnable {
     public static void fileParse() throws Exception {
         Path pathToFile1 = Paths.get("/home/aseccxz/projects/secondProject/java-project-71/app/src/main/java/hexlet/code/file1.json");
         Path pathToFile2 = Paths.get("/home/aseccxz/projects/secondProject/java-project-71/app/src/main/java/hexlet/code/file2.json");
-        String jsonContent1 = Files.readString(pathToFile1);
-        String jsonContent2 = Files.readString(pathToFile2);
+
+        Map<String, String> json1 = getMapFromJSON(pathToFile1);
+        Map<String, String> json2 = getMapFromJSON(pathToFile2);
+        differ(json1, json2);
+
+    }
+    public static void differ(Map <String, String> json1, Map <String, String> json2) {
+        Set<String> keysJson1 = json1.keySet();
+        Set<String> keysJson2 = json2.keySet();
+        List<String> allKeys = (List<String>) CollectionUtils.union(keysJson1, keysJson2);
+        List<String> commonKeys = (List<String>) CollectionUtils.intersection(keysJson1, keysJson2);
+        List<String> uniqueKeysJson1 = (List<String>) CollectionUtils.subtract(keysJson1, keysJson2);
+        List<String> uniqueKeysJson2 = (List<String>) CollectionUtils.subtract(keysJson2, keysJson1);
+        StringBuilder diff = new StringBuilder();
+        allKeys.sort(String::compareTo);
+        allKeys.forEach(key ->{
+            if (commonKeys.contains(key)) {
+                if (json1.get(key).equals(json2.get(key))) {
+                    diff.append("  ").append(key).append(": ").append(json1.get(key)).append("\n");
+                } else {
+                    diff.append("- ").append(key).append(": ").append(json1.get(key)).append("\n");
+                    diff.append("+ ").append(key).append(": ").append(json2.get(key)).append("\n");
+                }
+            }
+            if (uniqueKeysJson1.contains(key)) {
+                diff.append("- ").append(key).append(": ").append(json1.get(key)).append("\n");
+            }
+            if (uniqueKeysJson2.contains(key)) {
+                diff.append("+ ").append(key).append(": ").append(json2.get(key)).append("\n");
+            }
+        });
+        System.out.println(diff.toString());
+    }
+    public static Map <String, String> getMapFromJSON (Path path) throws Exception {
+        String jsonContent = Files.readString(path);
         ObjectMapper mapper = new ObjectMapper();
-        Map<String, Integer> scoreByName1 = mapper.readValue(jsonContent1, Map.class);
-        Map<String, Integer> scoreByName2 = mapper.readValue(jsonContent2, Map.class);
-        System.out.println("File1: " + scoreByName1);
-        System.out.println("File2: " + scoreByName2);
+        return mapper.readValue(jsonContent, new TypeReference<Map<String, String>>() { });
+
     }
 }

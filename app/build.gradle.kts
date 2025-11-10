@@ -1,6 +1,6 @@
 plugins {
     application
-    id("java")
+    java
     id("com.github.ben-manes.versions") version "0.53.0"
 }
 
@@ -18,6 +18,8 @@ dependencies {
     implementation("info.picocli:picocli:4.7.7")
     implementation("com.fasterxml.jackson.core:jackson-core:2.20.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.20.1")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.1")
+    implementation("org.apache.commons:commons-collections4:4.5.0")
 }
 
 tasks.test {
