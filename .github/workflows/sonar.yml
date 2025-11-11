@@ -24,6 +24,9 @@ jobs:
       - name: Generate coverage report
         working-directory: ./app
         run: make report
+      - name: Run quality checks
+        working-directory: ./app
+        run: ./gradlew checkstyleMain checkstyleTest
       - name: Cache SonarQube packages
         uses: actions/cache@v4
         with:
@@ -40,4 +43,4 @@ jobs:
         working-directory: ./app
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew build sonar --info
+        run: ./gradlew sonar --info
