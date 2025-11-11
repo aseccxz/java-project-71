@@ -22,6 +22,7 @@ jobs:
         working-directory: ./app
         run: ./gradlew build
       - name: Generate coverage report
+        working-directory: ./app
         run: make report
       - name: Cache SonarQube packages
         uses: actions/cache@v4

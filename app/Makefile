@@ -3,3 +3,5 @@ run-dist:
 make build:
 	./gradlew build
 .PHONY: make build
+report:
+	./gradlew jacocoTestReport
