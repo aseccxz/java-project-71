@@ -2,9 +2,9 @@ import hexlet.code.Differ;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DifferTest {
+class DifferTest {
     @Test
-    public void differTest() throws Exception {
+    void differTest() throws Exception {
         String pathToFile1 = "src/test/resources/file1.json";
         String pathToFile2 = "src/test/resources/file2.json";
         String actual = Differ.generate(pathToFile1, pathToFile2);
