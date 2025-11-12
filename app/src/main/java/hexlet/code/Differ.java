@@ -25,16 +25,20 @@ public class Differ {
             allKeys.forEach(key -> {
                 if (commonKeys.contains(key)) {
                     if (Objects.equals(json1.get(key), json2.get(key))) {
+                        //ключ и значение совпадают
                         diff.append("  ").append(key).append(": ").append(json1.get(key)).append("\n");
                     } else {
+                        //значение по ключу изменилось
                         diff.append("- ").append(key).append(": ").append(json1.get(key)).append("\n");
                         diff.append("+ ").append(key).append(": ").append(json2.get(key)).append("\n");
                     }
                 }
                 if (uniqueKeysJson1.contains(key)) {
+                    //удален ключ и значение
                     diff.append("- ").append(key).append(": ").append(json1.get(key)).append("\n");
                 }
                 if (uniqueKeysJson2.contains(key)) {
+                    //добавлены новые ключ и значение
                     diff.append("+ ").append(key).append(": ").append(json2.get(key)).append("\n");
                 }
             });
