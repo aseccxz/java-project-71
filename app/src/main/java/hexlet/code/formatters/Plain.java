@@ -34,6 +34,6 @@ public class Plain {
                 sb.append("\n");
             }
         }
-        return sb.toString();
+        return sb.toString().trim();
     }
 }
