@@ -11,15 +11,15 @@ import java.util.Map;
 
 public class Parser {
     public static Map<String, Object> getMapFromJSONPath(String path) throws Exception {
+        String[] pathParts = path.split("\\.");
+        String format = pathParts[pathParts.length - 1];
         Path pathToFile = Paths.get(path).toAbsolutePath().normalize();
-        String jsonContent = Files.readString(pathToFile);
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(jsonContent, new TypeReference<Map<String, Object>>() { });
-    }
-    public static Map<String, Object> getMapFromYAMLPath(String path) throws Exception {
-        Path pathToFile = Paths.get(path).toAbsolutePath().normalize();
-        String yamlContent = Files.readString(pathToFile);
-        ObjectMapper mapper = new YAMLMapper();
-        return mapper.readValue(yamlContent, new TypeReference<Map<String, Object>>() { });
+        String content = Files.readString(pathToFile);
+        ObjectMapper mapper = switch (format) {
+            case "json" -> new ObjectMapper();
+            case "yml" -> new YAMLMapper();
+            default -> throw new IllegalStateException("Unexpected format: " + format);
+        };
+        return mapper.readValue(content, new TypeReference<Map<String, Object>>() { });
     }
 }

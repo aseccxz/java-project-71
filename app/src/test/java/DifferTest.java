@@ -7,7 +7,7 @@ class DifferTest {
     void differTest() throws Exception {
         String pathToFile1 = "src/test/resources/file1.json";
         String pathToFile2 = "src/test/resources/file2.json";
-        String actual = Differ.generate(pathToFile1, pathToFile2);
+        String actual = Differ.generate(pathToFile1, pathToFile2, "stylish");
         String expected = """
                   chars1: [a, b, c]
                 - chars2: [d, e, f]
