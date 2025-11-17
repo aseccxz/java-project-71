@@ -30,6 +30,6 @@ public class Json {
             }
         }
         sb.append("\n}");
-        return sb.toString();
+        return sb.toString().trim();
     }
 }

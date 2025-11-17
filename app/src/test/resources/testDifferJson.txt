@@ -1,0 +1,70 @@
+{
+  "chars1": {
+    "status":"unchanged",
+    "current": ["a","b","c"]
+  },
+  "chars2": {
+    "status": "changed",
+    "previous": ["d","e","f"],
+    "current": false
+  },
+  "checked": {
+    "status": "changed",
+    "previous": false,
+    "current": true
+  },
+  "default": {
+    "status": "changed",
+    "previous": null,
+    "current": ["value1","value2"]
+  },
+  "id": {
+    "status": "changed",
+    "previous": 45,
+    "current": null
+  },
+  "key1": {
+    "status": "deleted",
+    "previous": "value1"
+  },
+  "key2": {
+    "status":"added",
+    "current": "value2"
+  },
+  "numbers1": {
+    "status":"unchanged",
+    "current": [1,2,3,4]
+  },
+  "numbers2": {
+    "status": "changed",
+    "previous": [2,3,4,5],
+    "current": [22,33,44,55]
+  },
+  "numbers3": {
+    "status": "deleted",
+    "previous": [3,4,5]
+  },
+  "numbers4": {
+    "status":"added",
+    "current": [4,5,6]
+  },
+  "obj1": {
+    "status":"added",
+    "current": {"nestedKey":"value","isNested":true}
+  },
+  "setting1": {
+    "status": "changed",
+    "previous": "Some value",
+    "current": "Another value"
+  },
+  "setting2": {
+    "status": "changed",
+    "previous": 200,
+    "current": 300
+  },
+  "setting3": {
+    "status": "changed",
+    "previous": true,
+    "current": "none"
+  }
+}

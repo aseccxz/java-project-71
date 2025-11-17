@@ -19,6 +19,6 @@ public class Stylish {
             sb.append(currentLine).append("\n");
         }
         sb.append("}");
-        return sb.toString();
+        return sb.toString().trim();
     }
 }
