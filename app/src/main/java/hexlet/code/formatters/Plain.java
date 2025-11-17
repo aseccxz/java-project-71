@@ -26,7 +26,6 @@ public class Plain {
                 case DifferStatusData.DELETED -> "Property '" + value.getKeyValue() + " was removed";
                 default -> "";
             };
-            System.out.println(value.equals(changesLog.getLast()) + "=" + value.getKeyValue());
             if (currentLine.isEmpty()) {
                 continue;
             }
