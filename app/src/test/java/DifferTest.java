@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DifferTest {
     @Test
-    void differTest() throws Exception {
+    void differTestWithFormats() throws Exception {
         String pathToFile1 = "src/test/resources/file1.json";
         String pathToFile2 = "src/test/resources/file2.json";
         String pathToExpectedFixture = "src/test/resources/testDifferPlain.txt";
@@ -31,6 +31,17 @@ class DifferTest {
         pathToExpectedFixture = "src/test/resources/testDifferJson.txt";
         pathToFixture = Paths.get(pathToExpectedFixture);
         expected = Files.readString(pathToFixture).trim();
+        assertEquals(expected, actual);
+    }
+    @Test
+    void differTestYML() throws Exception {
+        String pathToFile1 = "src/test/resources/file1.yml";
+        String pathToFile2 = "src/test/resources/file2.yml";
+        String pathToExpectedFixture = "src/test/resources/testDifferPlain.txt";
+        String format1 = "plain";
+        String actual = Differ.generate(pathToFile1, pathToFile2, format1);
+        Path pathToFixture = Paths.get(pathToExpectedFixture);
+        String expected = Files.readString(pathToFixture).trim();
         assertEquals(expected, actual);
     }
 }
