@@ -5,13 +5,17 @@ import hexlet.code.DifferStatusData;
 import java.util.List;
 
 public class Plain {
-    public static Object hideComplexValue(Object object) {
-        if (object != null) {
-            if (object.toString().startsWith("[") || object.toString().startsWith("{")) {
-                return "[complex value]";
-            }
+    public static String hideComplexValue(Object object) {
+        if (object == null) {
+            return "null";
         }
-        return object;
+        if (object.toString().startsWith("[") || object.toString().startsWith("{")) {
+            return "[complex value]";
+        }
+        if (object instanceof String) {
+            return "'" + object.toString() + "'";
+        }
+        return object.toString();
     }
 
     public static String toPlainFormat(List<DifferStatusData> changesLog) {
