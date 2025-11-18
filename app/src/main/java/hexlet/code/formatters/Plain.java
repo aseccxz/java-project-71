@@ -29,7 +29,7 @@ public class Plain {
                         "Property '" + value.getKeyValue() + "' was updated. From "
                                 + hideComplexValue(value.getOldValue())
                                 + " to " + hideComplexValue(value.getNewValue());
-                case DifferStatusData.DELETED -> "Property '" + value.getKeyValue() + " was removed";
+                case DifferStatusData.DELETED -> "Property '" + value.getKeyValue() + "' was removed";
                 default -> "";
             };
             if (currentLine.isEmpty()) {
