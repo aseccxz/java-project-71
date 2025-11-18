@@ -6,10 +6,12 @@ import java.util.List;
 
 public class Plain {
     public static Object hideComplexValue(Object object) {
-        if (object instanceof Number || object instanceof String || object instanceof Boolean || object == null) {
-            return object;
+        if (object != null) {
+            if (object.toString().startsWith("[") || object.toString().startsWith("{")) {
+                return "[complex value]";
+            }
         }
-        return "[complex value]";
+        return object;
     }
 
     public static String toPlainFormat(List<DifferStatusData> changesLog) {

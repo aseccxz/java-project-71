@@ -14,7 +14,7 @@ public class Formatter {
             case "plain" -> Plain.toPlainFormat(changesLog);
             case "stylish" -> Stylish.toStylishFormat(changesLog);
             case "json" -> Json.toJsonFormat(changesLog);
-            default -> "Unknown format";
+            default -> throw new RuntimeException("Unknown format: " + format);
         };
     }
 }

@@ -16,8 +16,8 @@ public final class App implements Callable<Integer> {
     @Parameters(paramLabel = "filepath2", description = "path to second file")
     private String path2;
     @Option(names = { "-f", "--format" }, paramLabel = "format",
-            description = "output format [default: ${DEFAULT-VALUE}]")
-    private String format = "stylish";
+            description = "output format [default: ${DEFAULT-VALUE}]", defaultValue = "stylish")
+    private String format;
 
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
