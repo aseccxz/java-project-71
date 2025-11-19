@@ -26,6 +26,12 @@ class DifferTest {
         expected = Files.readString(pathToFixture).trim();
         assertEquals(expected, actual);
 
+        actual = Differ.generate(pathToFile1, pathToFile2);
+        pathToExpectedFixture = "src/test/resources/testDifferStylish.txt";
+        pathToFixture = Paths.get(pathToExpectedFixture);
+        expected = Files.readString(pathToFixture).trim();
+        assertEquals(expected, actual);
+
         String format3 = "json";
         actual = Differ.generate(pathToFile1, pathToFile2, format3);
         pathToExpectedFixture = "src/test/resources/testDifferJson.txt";
@@ -46,6 +52,12 @@ class DifferTest {
 
         String format2 = "stylish";
         actual = Differ.generate(pathToFile1, pathToFile2, format2);
+        pathToExpectedFixture = "src/test/resources/testDifferStylish.txt";
+        pathToFixture = Paths.get(pathToExpectedFixture);
+        expected = Files.readString(pathToFixture).trim();
+        assertEquals(expected, actual);
+
+        actual = Differ.generate(pathToFile1, pathToFile2);
         pathToExpectedFixture = "src/test/resources/testDifferStylish.txt";
         pathToFixture = Paths.get(pathToExpectedFixture);
         expected = Files.readString(pathToFixture).trim();

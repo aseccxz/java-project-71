@@ -6,16 +6,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class DifferCalculator {
     public static List<DifferStatusData> getListOfDifferences(Map<String, Object> file1, Map<String, Object> file2) {
-        Set<String> keysJson1 = file1.keySet();
-        Set<String> keysJson2 = file2.keySet();
-        List<String> allKeys = (List<String>) CollectionUtils.union(keysJson1, keysJson2);
-        List<String> commonKeys = (List<String>) CollectionUtils.intersection(keysJson1, keysJson2);
-        List<String> uniqueKeysJson1 = (List<String>) CollectionUtils.subtract(keysJson1, keysJson2);
-        List<String> uniqueKeysJson2 = (List<String>) CollectionUtils.subtract(keysJson2, keysJson1);
-        allKeys.sort(String::compareTo);
+        Set<String> keysFile1 = file1.keySet();
+        Set<String> keysFile2 = file2.keySet();
+        Set<String> allKeys = new TreeSet<>(keysFile1);
+        allKeys.addAll(keysFile2);
+        List<String> commonKeys = (List<String>) CollectionUtils.intersection(keysFile1, keysFile2);
+        List<String> uniqueKeysJson1 = (List<String>) CollectionUtils.subtract(keysFile1, keysFile2);
+        List<String> uniqueKeysJson2 = (List<String>) CollectionUtils.subtract(keysFile2, keysFile1);
         List<DifferStatusData> changesLog = new ArrayList<>();
         allKeys.forEach(key -> {
             if (commonKeys.contains(key)) {

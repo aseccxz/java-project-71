@@ -8,12 +8,10 @@ public class Plain {
     public static String hideComplexValue(Object object) {
         if (object == null) {
             return "null";
-        }
-        if (object.toString().startsWith("[") || object.toString().startsWith("{")) {
+        } else if (object instanceof String) {
+            return "'" + object + "'";
+        } else if (object instanceof List || object instanceof java.util.Map) {
             return "[complex value]";
-        }
-        if (object instanceof String) {
-            return "'" + object.toString() + "'";
         }
         return object.toString();
     }
@@ -30,7 +28,8 @@ public class Plain {
                                 + hideComplexValue(value.getOldValue())
                                 + " to " + hideComplexValue(value.getNewValue());
                 case DifferStatusData.DELETED -> "Property '" + value.getKeyValue() + "' was removed";
-                default -> "";
+                case DifferStatusData.UNCHANGED -> "";
+                default -> throw new RuntimeException("Unknown status: " + value.getStatusName());
             };
             if (currentLine.isEmpty()) {
                 continue;

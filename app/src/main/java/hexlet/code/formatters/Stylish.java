@@ -14,7 +14,7 @@ public class Stylish {
                         + "\n  + " + value.getKeyValue() + ": " + value.getNewValue();
                 case DifferStatusData.DELETED -> "  - " + value.getKeyValue() + ": " + value.getOldValue();
                 case DifferStatusData.UNCHANGED -> "    " + value.getKeyValue() + ": " + value.getOldValue();
-                default -> "";
+                default -> throw new RuntimeException("Unknown status: " + value.getStatusName());
             };
             sb.append(currentLine).append("\n");
         }
