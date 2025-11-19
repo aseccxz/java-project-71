@@ -9,5 +9,6 @@
 * Поддержка разных входных форматов: yaml и json]  
 * Генерация отчета в виде [plain](https://asciinema.org/a/rmNrrZTciTbec6pjNcnQOFoq5), [stylish](https://asciinema.org/a/udrKJcWccEkLZqc93Shdp8Uw2) и [json](https://asciinema.org/a/fXNkk7k8eIsN2GglQv2FCKnOt)  
 Для запуска утилиты требуется передать два обязательных параметра - относительные или абсолютные пути для файлов и один необязательный - -f или --format  
-Пример: /app file1.json file2.json -f plain
+Пример:   
+```/app file1.json file2.json -f plain```
 
