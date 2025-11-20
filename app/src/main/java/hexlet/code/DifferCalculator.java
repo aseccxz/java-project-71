@@ -1,36 +1,30 @@
 package hexlet.code;
 
-import org.apache.commons.collections4.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.Objects;
 
 public class DifferCalculator {
-    public static List<DifferStatusData> getListOfDifferences(Map<String, Object> file1, Map<String, Object> file2) {
-        Set<String> keysFile1 = file1.keySet();
-        Set<String> keysFile2 = file2.keySet();
+    public static List<DifferStatusData> getListOfDifferences(Map<String, Object> data1, Map<String, Object> data2) {
+        Set<String> keysFile1 = data1.keySet();
+        Set<String> keysFile2 = data2.keySet();
         Set<String> allKeys = new TreeSet<>(keysFile1);
         allKeys.addAll(keysFile2);
-        List<String> commonKeys = (List<String>) CollectionUtils.intersection(keysFile1, keysFile2);
-        List<String> uniqueKeysJson1 = (List<String>) CollectionUtils.subtract(keysFile1, keysFile2);
-        List<String> uniqueKeysJson2 = (List<String>) CollectionUtils.subtract(keysFile2, keysFile1);
         List<DifferStatusData> changesLog = new ArrayList<>();
         allKeys.forEach(key -> {
-            if (commonKeys.contains(key)) {
-                if (Objects.equals(file1.get(key), file2.get(key))) {
-                    changesLog.add(new DifferStatusData(DifferStatusData.UNCHANGED, key, file1.get(key)));
+            if (data1.containsKey(key) && data2.containsKey(key)) {
+                if (Objects.equals(data1.get(key), data2.get(key))) {
+                    changesLog.add(new DifferStatusData(DifferStatusData.UNCHANGED, key, data1.get(key)));
                 } else {
-                    changesLog.add(new DifferStatusData(DifferStatusData.CHANGED, key, file1.get(key), file2.get(key)));
+                    changesLog.add(new DifferStatusData(DifferStatusData.CHANGED, key, data1.get(key), data2.get(key)));
                 }
-            }
-            if (uniqueKeysJson1.contains(key)) {
-                changesLog.add(new DifferStatusData(DifferStatusData.DELETED, key, file1.get(key)));
-            }
-            if (uniqueKeysJson2.contains(key)) {
-                changesLog.add(new DifferStatusData(DifferStatusData.ADDED, key, file2.get(key)));
+            } else if (data1.containsKey(key)) {
+                changesLog.add(new DifferStatusData(DifferStatusData.DELETED, key, data1.get(key)));
+            } else if (data2.containsKey(key)) {
+                changesLog.add(new DifferStatusData(DifferStatusData.ADDED, key, data2.get(key)));
             }
         });
         return changesLog;

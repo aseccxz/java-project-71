@@ -19,13 +19,22 @@ public class Differ {
         return pathParts[pathParts.length - 1];
     }
 
+    public static String getFormatByExtension(String path) {
+        String extension = getFileExtension(path);
+        return switch (extension) {
+            case "json" -> "json";
+            case "yml", "yaml" -> "yml";
+            default -> throw new IllegalStateException("Unexpected file extension: " + extension);
+        };
+    }
+
+    public static String generate(String path1, String path2, String format) throws Exception {
+        Map<String, Object> data1 = Parser.getMap(getFileContent(path1), getFormatByExtension(path1));
+        Map<String, Object> data2 = Parser.getMap(getFileContent(path2), getFormatByExtension(path2));
+        List<DifferStatusData> changesLog = DifferCalculator.getListOfDifferences(data1, data2);
+        return Formatter.formatOption(format, changesLog);
+    }
     public static String generate(String filePath1, String filePath2) throws Exception {
         return generate(filePath1, filePath2, "stylish");
-    }
-    public static String generate(String path1, String path2, String format) throws Exception {
-        Map<String, Object> file1 = Parser.getMapFromFile(getFileContent(path1), getFileExtension(path1));
-        Map<String, Object> file2 = Parser.getMapFromFile(getFileContent(path2), getFileExtension(path2));
-        List<DifferStatusData> changesLog = DifferCalculator.getListOfDifferences(file1, file2);
-        return Formatter.formatOption(format, changesLog);
     }
 }
